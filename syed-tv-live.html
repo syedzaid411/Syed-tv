@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Syed TV</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;600;800&display=swap">
+<style>
+:root{--ink:#120E1C;--plum:#1D1630;--card:#2A2040;--ivory:#F4EEE3;--mute:#A99FBC;--gold:#EDB94B;--rose:#D8567B;
+--serif:'Fraunces',Georgia,serif;--sans:'Manrope',system-ui,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit;margin:0}
+body{background:var(--ink);color:var(--ivory);font:400 15px/1.5 var(--sans);max-width:560px;margin:auto;padding-bottom:84px;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:linear-gradient(var(--ink) 55%,transparent)}
+.logo{font:700 26px var(--serif);letter-spacing:.5px}
+.logo i{color:var(--gold);font-style:normal}
+.hero{margin:4px 18px 0;border-radius:26px;min-height:440px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;background:radial-gradient(120% 70% at 75% 8%,#E9A64C 0,#B2425F 38%,#2A1B4A 72%,var(--plum))}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(18,14,28,.92))}
+.hero>*{position:relative;z-index:1}
+.hero h1{font:700 44px/1.02 var(--serif);margin-bottom:8px}
+.meta{color:#E8DDD0;font-size:13px;margin-bottom:10px}
+.hero p{color:#E8DDD0;max-width:34ch;margin-bottom:18px}
+.btns{display:flex;gap:10px}
+.btn{padding:13px 24px;border-radius:999px;font-weight:800}
+.btn.p{background:var(--gold);color:#241800}
+.btn.s{background:rgba(244,238,227,.14);backdrop-filter:blur(8px)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:22px 18px 4px;scrollbar-width:none}
+.chip{padding:8px 16px;border-radius:999px;background:var(--plum);color:var(--mute);font-weight:600;white-space:nowrap}
+.chip[aria-pressed=true]{background:var(--ivory);color:var(--ink)}
+h2{font:500 21px var(--serif);padding:24px 18px 10px}
+.row{display:flex;gap:12px;overflow-x:auto;padding:0 18px;scroll-snap-type:x proximity;scrollbar-width:none}
+.row::-webkit-scrollbar,.chips::-webkit-scrollbar{display:none}
+.poster{flex:0 0 128px;aspect-ratio:2/3;border-radius:16px;position:relative;overflow:hidden;scroll-snap-align:start;text-align:left;display:flex;align-items:flex-end;padding:10px;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.poster::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(10,6,20,.85))}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster span{position:relative;z-index:1;font:700 15px/1.1 var(--serif)}
+.top{display:flex;align-items:flex-end;flex:0 0 auto;scroll-snap-align:start}
+.top b{font:700 92px/.8 var(--serif);color:transparent;-webkit-text-stroke:2px var(--gold);margin-right:-14px;position:relative;z-index:2}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 18px}
+.grid .poster{flex:none}
+.empty{padding:40px 18px;color:var(--mute)}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(520px,calc(100% - 28px));display:flex;justify-content:space-around;background:rgba(42,32,64,.86);backdrop-filter:blur(16px);border-radius:999px;padding:6px;z-index:6}
+nav button{flex:1;padding:11px 0;border-radius:999px;color:var(--mute);font-weight:600;font-size:12px}
+nav button[aria-current=page]{background:var(--ivory);color:var(--ink)}
+.sheet{position:fixed;inset:0;z-index:10;display:none;align-items:flex-end;justify-content:center;background:rgba(8,5,16,.7)}
+.sheet.on{display:flex}
+.panel{width:100%;max-width:560px;background:var(--plum);border-radius:28px 28px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom,0px));animation:up .25s ease-out}
+.panel .art{height:170px;border-radius:18px;margin-bottom:16px}
+.panel h3{font:700 28px var(--serif)}
+.panel p{color:#D6CCE4;margin:10px 0 18px}
+.panel .btns{margin-top:6px}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:36px 18px 8px}
+.chl{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 18px}
+.ch{border-radius:18px;padding:16px;min-height:110px;text-align:left;display:flex;flex-direction:column;justify-content:flex-end;position:relative;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.ch b{font:700 19px var(--serif)}
+.ch small{color:#E8DDD0}
+.lv{position:absolute;top:12px;left:14px;background:var(--rose);color:#fff;font:800 10px var(--sans);padding:3px 8px;border-radius:999px}
+#gate{position:fixed;inset:0;z-index:30;background:var(--ink);display:flex;align-items:center;justify-content:center;padding:24px}
+.gbox{width:100%;max-width:340px;text-align:center;display:flex;flex-direction:column;gap:14px}
+.gbox p{color:var(--mute)}
+#pw{padding:14px 18px;border-radius:999px;border:1px solid #4a3d68;background:var(--plum);color:var(--ivory);font:inherit;text-align:center}
+#pw:focus-visible{outline:2px solid var(--gold)}
+#err{color:var(--rose);min-height:1.4em}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+@media(prefers-reduced-motion:reduce){.panel{animation:none}}
+</style>
+</head>
+<body>
+<header><div class="logo">Syed <i>TV</i></div><button class="chip" id="srch" aria-label="Search">Search</button></header>
+<main id="app"></main>
+<nav>
+<button data-t="home" aria-current="page">Home</button>
+<button data-t="movies">Movies</button>
+<button data-t="series">Series</button>
+<button data-t="live">Live TV</button>
+<button data-t="list">My List</button>
+</nav>
+<footer>Owned by Syed Zaid</footer>
+<div id="gate"><div class="gbox"><div class="logo">Syed <i>TV</i></div><p>Enter the password to continue</p><input id="pw" type="password" autocomplete="current-password" aria-label="Password"><button class="btn p" id="go">Open</button><p id="err" role="alert"></p></div></div>
+<div class="sheet" id="sheet"><div class="panel" id="panel"></div></div>
+<script>
+var API_URL=""; // put your API here when you host this page yourself
+var D=[
+["Midnight Bazaar","Thriller",2025,"A night market where every stall sells one secret. A courier has until dawn to deliver the wrong parcel.",340],
+["The Last Monsoon","Drama",2024,"Three sisters return to a flooded family home and a will nobody wants to read.",18],
+["Neon Dhaba","Comedy",2026,"A truck-stop cook goes viral and the highway will never be quiet again.",52],
+["Salt & Saffron","Romance",2025,"Two rival chefs share one kitchen for a single festival season.",12],
+["Fault Line","Action",2026,"A seismologist reads the tremors and finds they are not natural.",205],
+["Paper Kingdoms","Fantasy",2024,"A mapmaker's apprentice draws a country that begins to draw back.",270],
+["Quiet Hours","Drama",2025,"A night-shift radio host hears the same caller every show.",300],
+["Zero Gravity Club","Sci-Fi",2026,"Teenagers on a failing orbital station start a secret league.",175],
+["Old City Diaries","Documentary",2023,"One year inside the oldest lanes of the city, told by the people who live there.",30],
+["Ember","Action",2025,"A retired firefighter takes one last call across a burning border.",15],
+["Mirror Lake","Mystery",2024,"A town's lake returns what it took, one object at a time.",250],
+["Rooftop Rules","Comedy",2026,"Four neighbours, one terrace, and a very strict society bylaw.",95]];
+var cats=["All","Thriller","Drama","Comedy","Action","Fantasy","Sci-Fi"];
+var cat="All",tab="home",mine={};
+var plat="All",dub=false;var X=[["m","Prime Video",1],["s","Hotstar",1],["m","Netflix",0],["s","Apple TV+",1],["m","Prime Video",0],["s","Netflix",1],["s","Hotstar",0],["m","Apple TV+",1],["m","Hotstar",1],["m","Netflix",1],["s","Prime Video",0],["s","Apple TV+",0]];var PL=["All","Prime Video","Hotstar","Apple TV+","Netflix"];
+function art(h){return"background:linear-gradient(155deg,hsl("+h+",70%,52%),hsl("+((h+50)%360)+",55%,26%) 70%,#1D1630)"}
+function P(i){var d=D[i];return'<button class="poster" data-i="'+i+'" style="'+art(d[4])+'">'+(d[5]?'<img src="'+d[5]+'" alt="" loading="lazy">':'')+'<span>'+d[0]+'</span></button>'}
+function list(f){return D.map(function(d,i){return f(d)?P(i):""}).join("")}
+function home(){
+var c=cats.map(function(x){return'<button class="chip" data-c="'+x+'" aria-pressed="'+(x==cat)+'">'+x+'</button>'}).join("");
+var all=function(d){return cat=="All"||d[1]==cat};
+var t10=D.slice(0,5).map(function(d,i){return'<div class="top"><b>'+(i+1)+'</b>'+P(i)+'</div>'}).join("");
+return'<section class="hero"><div class="meta">'+D[0][1]+' · '+D[0][2]+' · Featured tonight</div><h1>'+D[0][0]+'</h1><p>'+D[0][3]+'</p><div class="btns"><button class="btn p" data-play="0">Play</button><button class="btn s" data-i="0">Details</button></div></section>'
++'<div class="chips">'+c+'</div><h2>Continue watching</h2><div class="row">'+list(function(d){return d[4]%2==0&&all(d)})+'</div>'
++'<h2>Top 5 today</h2><div class="row">'+t10+'</div><h2>New this week</h2><div class="row">'+list(function(d){return d[2]==2026&&all(d)})+'</div>'
++'<h2>Because you like drama</h2><div class="row">'+list(function(d){return d[1]=="Drama"})+'</div>'}
+function browse(q){q=(q||"").toLowerCase();var h=list(function(d){return d[0].toLowerCase().indexOf(q)>-1||d[1].toLowerCase().indexOf(q)>-1});
+return'<h2>'+(q?'Results':'Browse all')+'</h2>'+(h?'<div class="grid">'+h+'</div>':'<p class="empty">No titles match "'+q+'". Try a genre like Drama or Action.</p>')}
+var C=[["News","24x7 headlines",200],["Movies","Non-stop films",330],["Sports","Live matches",140],["Music","Hits all day",290],["Kids","Cartoons and fun",50],["Entertainment","Shows and serials",10]];
+function live(){return'<h2>Live TV</h2><div class="chl">'+C.map(function(c,i){return'<button class="ch" data-ch="'+i+'" style="'+art(c[2])+'"><span class="lv">LIVE</span><b>'+c[0]+'</b><small>'+c[1]+'</small></button>'}).join("")+'</div>'}
+function catalog(t){var ch=PL.map(function(x){return'<button class="chip" data-pl="'+x+'" aria-pressed="'+(x==plat)+'">'+x+'</button>'}).join("")+'<button class="chip" data-dub="1" aria-pressed="'+dub+'">Hindi Dubbed</button>';
+var h=D.map(function(d,i){var x=X[i];return x[0]==t&&(plat=="All"||x[1]==plat)&&(!dub||x[2])?P(i):""}).join("");
+return'<h2>'+(t=="m"?"Movies":"Series")+'</h2><div class="chips" style="padding-top:0">'+ch+'</div>'+(h?'<div class="grid">'+h+'</div>':'<p class="empty">No titles for this filter. Try another platform or turn off Hindi Dubbed.</p>')}
+function mylist(){var h=list(function(d){return mine[d[0]]});return'<h2>My List</h2>'+(h?'<div class="grid">'+h+'</div>':'<p class="empty">Nothing saved yet. Open any title and tap Add to My List.</p>')}
+function render(){var a=document.getElementById("app");a.innerHTML=tab=="home"?home():tab=="browse"?browse():tab=="live"?live():tab=="movies"?catalog("m"):tab=="series"?catalog("s"):mylist();
+document.querySelectorAll("nav button").forEach(function(b){if(b.dataset.t==tab)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")})}
+function open(i){var d=D[i],s=mine[d[0]];var p=document.getElementById("panel");
+p.innerHTML='<div class="art" style="'+art(d[4])+'"></div><h3>'+d[0]+'</h3><div class="meta" style="color:var(--mute)">'+d[1]+' · '+d[2]+' · '+(X[i][0]=="m"?"Movie":"Series")+' · '+X[i][1]+(X[i][2]?' · Hindi dubbed':'')+'</div><p>'+d[3]+'</p><div class="btns"><button class="btn p" data-play="'+i+'">Watch on '+X[i][1]+'</button><button class="btn s" data-save="'+i+'">'+(s?'Remove from My List':'Add to My List')+'</button></div>';
+document.getElementById("sheet").classList.add("on")}
+function close(){document.getElementById("sheet").classList.remove("on")}
+document.addEventListener("click",function(e){var b=e.target.closest("button");
+if(e.target.id=="sheet"){close();return}
+if(!b)return;var ds=b.dataset;
+if(b.id=="srch"){var q=prompt("Search titles or genres");if(q!==null){tab="browse";render();document.getElementById("app").innerHTML=browse(q)}return}
+if(ds.t){tab=ds.t;render();window.scrollTo(0,0);return}
+if(ds.pl){plat=ds.pl;render();return}
+if(ds.dub){dub=!dub;render();return}
+if(ds.c){cat=ds.c;render();return}
+if(ds.save){var n=D[ds.save][0];mine[n]=!mine[n];open(ds.save);if(tab=="list")render();return}
+if(ds.ch){var c=C[ds.ch];var q=document.getElementById("panel");q.innerHTML='<div class="art" style="'+art(c[2])+'"></div><h3>'+c[0]+' channel</h3><p>Live player goes here. Connect your stream source to start playback.</p><div class="btns"><button class="btn s" id="x">Close</button></div>';document.getElementById("sheet").classList.add("on");return}
+if(ds.play){var pl=document.getElementById("panel");pl.innerHTML='<div class="art" style="'+art(D[ds.play][4])+'"></div><h3>'+D[ds.play][0]+'</h3><p>This opens on the official app or website of the platform.</p><div class="btns"><button class="btn s" id="x">Close</button></div>';document.getElementById("sheet").classList.add("on");return}
+if(b.id=="x"){close();return}
+if(ds.i!==undefined)open(ds.i)});
+document.addEventListener("keydown",function(e){if(e.key=="Escape")close()});
+var HASH="5850e2a614f1dad45fa8f65158730cfc135205f4702236fa5af716638a23970c";
+var G=document.getElementById("gate");
+function unlock(){G.style.display="none";try{sessionStorage.setItem("ok","1")}catch(e){}}
+try{if(sessionStorage.getItem("ok")=="1")unlock()}catch(e){}
+function sha(s){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")})}
+document.getElementById("go").onclick=function(){sha(document.getElementById("pw").value).then(function(h){if(h==HASH)unlock();else document.getElementById("err").textContent="Wrong password. Try again."})};
+document.getElementById("pw").addEventListener("keydown",function(e){if(e.key=="Enter")document.getElementById("go").click()});
+var KEY="c9146ece6f91fd56ff836def6a1bbf1a";
+var TM="https://api.themoviedb.org/3";
+var PID={"Prime Video":119,"Hotstar":122,"Apple TV+":350,"Netflix":8};
+function tm(p,q){return fetch(TM+p+"?api_key="+KEY+"&language=en-US&"+(q||"")).then(function(r){if(!r.ok)throw 0;return r.json()})}
+function loadLive(){
+Promise.all([tm("/genre/movie/list"),tm("/genre/tv/list")]).then(function(g){
+var GN={};g[0].genres.concat(g[1].genres).forEach(function(x){GN[x.id]=x.name});
+var jobs=[];
+["movie","tv"].forEach(function(t){Object.keys(PID).forEach(function(p){
+jobs.push(tm("/discover/"+t,"sort_by=popularity.desc&watch_region=IN&with_watch_providers="+PID[p]).then(function(r){return{t:t,p:p,r:r.results||[]}}))})});
+return Promise.all(jobs).then(function(all){
+var nd=[],nx=[],seen={};
+all.forEach(function(a){a.r.slice(0,8).forEach(function(m){
+var k=a.t+m.id;if(seen[k])return;seen[k]=1;
+nd.push([m.title||m.name,GN[(m.genre_ids||[])[0]]||"Drama",(m.release_date||m.first_air_date||"").slice(0,4),m.overview||"No description available.",(m.id*37)%360,m.poster_path?"https://image.tmdb.org/t/p/w342"+m.poster_path:""]);
+nx.push([a.t=="movie"?"m":"s",a.p,m.original_language=="hi"?1:0])})});
+if(nd.length>5){D=nd;X=nx;render()}})}).catch(function(){})}
+loadLive();
+render();
+</script>
+</body>
+</html>
